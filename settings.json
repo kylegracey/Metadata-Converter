@@ -1,0 +1,112 @@
+[
+  {
+    "BrandSubBrand": "VML",
+    "Group": "PepsiCo",
+    "Client Team": "Gatorade",
+    "Product Groups": {
+      "GTQ": [
+        "GTQ",
+        "GTQ - Fierce",
+        "GTQ - Flow",
+        "GTQ - Frost"
+      ],
+      "Bars": [
+        "Fuel Bar",
+        "Recover Bar"
+      ],
+      "Prime": [
+        "Prime Chews",
+        "Prime Pouch"
+      ],
+      "Perform": [
+        "GTQ",
+        "GTQ - Fierce",
+        "GTQ - Flow",
+        "GTQ - Frost",
+        "Gx",
+        "Coolers",
+        "Cups"
+      ],
+      "Recover": [
+        "Protein Powder",
+        "Protein Shake",
+        "Recover Bar",
+        "Shaker Bottle"
+      ]
+    },
+    "Product": [
+      "Coolers",
+      "Cups",
+      "Fuel Bar",
+      "GTQ",
+      "GTQ - Fierce",
+      "GTQ - Flow",
+      "GTQ - Frost",
+      "Gx",
+      "Organic",
+      "Prime Chews",
+      "Prime Pouch",
+      "Protein Powder",
+      "Protein Shake",
+      "Recover Bar",
+      "Shaker Bottle",
+      "Soccer Formula",
+      "Squeeze Bottles",
+      "Tent",
+      "Towel"
+    ],
+    "Person": [
+      "Bryce Harper",
+      "Coach",
+      "D'Angelo Russell",
+      "Dwyane Wade",
+      "Elena Delle Donne",
+      "Eli Manning",
+      "Jimmie Johnson",
+      "JJ Watt",
+      "Joe",
+      "Karl-Anthony Towns",
+      "Paul George",
+      "Peyton Manning",
+      "Serena Williams",
+      "Todd Gurley",
+      "Trainer",
+      "Usain Bolt"
+    ],
+    "Gender": [
+      "Male",
+      "Female"
+    ],
+    "Campaign" : [
+      "Efficacy",
+      "Flow",
+      "Social",
+      "Volume Driving",
+      "Beat the Heat",
+      "eComm"
+    ],
+    "Sport": [
+      "Baseball",
+      "Basketball",
+      "Cross Country",
+      "Football",
+      "Hockey",
+      "Lacrosse",
+      "NASCAR",
+      "Soccer",
+      "Tennis",
+      "Track",
+      "Workout"
+    ],
+    "Number of People": [
+      "None",
+      "One",
+      "Two",
+      "Group of People (3+)"
+    ],
+    "Marks": [
+      "Game",
+      "Practice"
+    ]
+  }
+]
