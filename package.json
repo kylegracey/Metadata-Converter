@@ -1,0 +1,19 @@
+{
+  "name": "metadata-converter",
+  "version": "0.0.2",
+  "description": "Takes metadata from a directory of files and converts it to a custom format needed for our internal DAM tool.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kylegracey/Metadata-Converter.git"
+  },
+  "author": "Kyle Gracey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kylegracey/Metadata-Converter/issues"
+  },
+  "homepage": "https://github.com/kylegracey/Metadata-Converter#readme"
+}
