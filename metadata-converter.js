@@ -5,6 +5,14 @@ var settings = require('./settings.json');
 
 var KeywordStr = "";
 
+//Static Settings
+var Archived = "0";
+var Copyright = "";
+var JobID = "";
+var PlatformRights = "";
+var Market = "North America";
+var AssetStatus = "Active";
+
 // Gets a specific setting by it's name
 function getSetting(key){
   var setting;
@@ -15,28 +23,13 @@ function getSetting(key){
   return setting;
 }
 
-//Static Settings
-var Archived = "0";
-var Copyright = "";
-var JobID = "";
-var PlatformRights = "";
-var Market = "North America";
-var AssetStatus = "Active";
-
 //Values to search for
 var pGroupWords = getSetting("Product Groups");
-var productWords = getSetting("Product");
-var personWords = getSetting("Person");
-var genderWords = getSetting("Gender");
-var campaignWords = getSetting("Campaign");
-var sportWords = getSetting("Sport");
-var numberOfPeopleWords = getSetting("Number of People");
-var marksWords = getSetting("Marks");
+
 
 file.forEach(function(elm){
   // Keyword string to array temporarily
   var KeywordArr = elm.Keywords.split(', ');
-
   // Search through Keywords for terms that should be under a 'Group' and return the group(s) the asset should be tagged with.
   function groupSearch(){
     let groupHolder = [];
@@ -49,12 +42,10 @@ file.forEach(function(elm){
       //Loop through each value of the key's array
 
       groupArr.forEach(function(keyword){
-
         //Compare the value to see if it exists in elm.Keywords
         if(elm.Keywords.search(keyword) !== -1){
           hasKeyword = 1;
         }
-
       });
 
       if(hasKeyword === 1) {
@@ -62,9 +53,7 @@ file.forEach(function(elm){
       }
 
     }
-
     return groupHolder.join(',');
-
   }
 
   //Search for words within keywords
@@ -117,6 +106,7 @@ file.forEach(function(elm){
     // Run First (No removing words from Keywords)
   var ProductGroups = groupSearch();
 
+
   //Write to Object Keys in order that they should appear
   elm["Asset Name"] = trimExtension();
   elm["Asset Description"] = elm.Description;
@@ -130,17 +120,17 @@ file.forEach(function(elm){
   elm.Group = getSetting("Group");
   elm["Client Team"] = getSetting("Client Team");
   elm["Product Group"] = ProductGroups;
-  elm.Product = wordSearch(productWords);
-  elm.Person = wordSearch(personWords);
-  elm.Gender = wordSearch(genderWords);
-  elm["Number of People"] = wordSearch(numberOfPeopleWords);
+  elm.Product = wordSearch(getSetting("Product"));
+  elm.Person = wordSearch(getSetting("Person"));
+  elm.Gender = wordSearch(getSetting("Gender"));
+  elm["Number of People"] = wordSearch(getSetting("Number of People"));
   elm["Job ID"] = JobID;
   elm.Year = elm.Created.substring(0,4);
   elm["Platform Rights"] = PlatformRights;
-  elm.Campaign = wordSearch(campaignWords);
-  elm.Sport = wordSearch(sportWords);
+  elm.Campaign = wordSearch(getSetting("Campaign"));
+  elm.Sport = wordSearch(getSetting("Sport"));
   elm.Market = Market;
-  elm["Team Marks"] = wordSearch(marksWords);
+  elm["Team Marks"] = wordSearch(getSetting("Marks"));
   elm["Asset Status"] = AssetStatus;
 
 
