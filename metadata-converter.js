@@ -11,7 +11,7 @@ var Copyright = "";
 var JobID = "";
 var PlatformRights = "";
 var Market = "North America";
-var AssetStatus = "Active";
+var AssetStatus = "";
 
 // Gets a specific setting by it's name
 function getSetting(key){
