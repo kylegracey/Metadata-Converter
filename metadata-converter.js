@@ -39,48 +39,31 @@ file.forEach(function(elm){
 
   // Search through Keywords for terms that should be under a 'Group' and return the group(s) the asset should be tagged with.
   function groupSearch(){
+    let groupHolder = [];
     let groups = pGroupWords;
-
     //Loop through each key in the object
     for (key in groups) {
       const groupName = key;
       const groupArr = groups[key];
-      let hasKeyword = 0;
-
+      var hasKeyword = 0;
       //Loop through each value of the key's array
+
       groupArr.forEach(function(keyword){
+
         //Compare the value to see if it exists in elm.Keywords
         if(elm.Keywords.search(keyword) !== -1){
-          console.log("Found " + keyword + " in " + elm.Keywords);
           hasKeyword = 1;
-        }
-
-        if(hasKeyword === 1) {
-          groupHolder.push(groupName);
         }
 
       });
 
+      if(hasKeyword === 1) {
+        groupHolder.push(groupName);
+      }
+
     }
 
-    // groups.forEach(function(group){
-    //   var groupName = group[0];
-    //   var groupArr = group[1];
-    //   var hasKeyword = 0;
-    //
-    //   groupArr.forEach(function(keyword){
-    //     if(elm.Keywords.search(keyword) !== -1){
-    //       hasKeyword = 1;
-    //     }
-    //   });
-    //
-    //   if(hasKeyword === 1) {
-    //     groupHolder.push(groupName);
-    //   }
-    //
-    // });
-    //
-    // return groupHolder.join(',');
+    return groupHolder.join(',');
 
   }
 
@@ -132,7 +115,7 @@ file.forEach(function(elm){
 
   //Setup Keys In order of when they should run
     // Run First (No removing words from Keywords)
-  var ProductGroups = groupSearch(pGroupWords);
+  var ProductGroups = groupSearch();
 
   //Write to Object Keys in order that they should appear
   elm["Asset Name"] = trimExtension();
@@ -146,6 +129,7 @@ file.forEach(function(elm){
   elm["New Filename"] = elm.FileName;
   elm.Group = getSetting("Group");
   elm["Client Team"] = getSetting("Client Team");
+  elm["Product Group"] = ProductGroups;
   elm.Product = wordSearch(productWords);
   elm.Person = wordSearch(personWords);
   elm.Gender = wordSearch(genderWords);
@@ -171,5 +155,5 @@ file.forEach(function(elm){
 
 fs.writeFile('output.json', JSON.stringify(file), function (err) {
   if (err) return console.log(err);
-  console.log('Success. Writing to ' + fileName);
+  console.log('Success. Writing to output.json');
 });
