@@ -103,11 +103,19 @@ file.forEach(function(elm){
   }
 
   //Setup Keys In order of when they should run
-    // Run First (No removing words from Keywords)
-  var ProductGroups = groupSearch();
-
+    // Run First (before removing words from Keywords with wordSearch function)
+  const ProductGroups = groupSearch();
+    // Run Second (removes words from tags)
+  const ProductWords = wordSearch("Product");
+  const PersonWords = wordSearch("Person");
+  const GenderWords = wordSearch("Gender");
+  const CampaignWords = wordSearch("Campaign");
+  const SportWords = wordSearch("Sport");
+  const NumPeopleWords = wordSearch("Number of People");
+  const MarksWords = wordSearch("Marks");
 
   //Write to Object Keys in order that they should appear
+  elm.OriginalKeys = elm.Keywords;
   elm["Asset Name"] = trimExtension();
   elm["Asset Description"] = elm.Description;
   elm.BrandSubbrand = getSetting("BrandSubBrand");
@@ -120,19 +128,18 @@ file.forEach(function(elm){
   elm.Group = getSetting("Group");
   elm["Client Team"] = getSetting("Client Team");
   elm["Product Group"] = ProductGroups;
-  elm.Product = wordSearch("Product");
-  elm.Person = wordSearch("Person");
-  elm.Gender = wordSearch("Gender");
-  elm["Number of People"] = wordSearch("Number of People");
+  elm.Product = ProductWords;
+  elm.Person = PersonWords;
+  elm.Gender = GenderWords;
+  elm["Number of People"] = NumPeopleWords;
   elm["Job ID"] = JobID;
   elm.Year = elm.Created.substring(0,4);
   elm["Platform Rights"] = PlatformRights;
-  elm.Campaign = wordSearch("Campaign");
-  elm.Sport = wordSearch("Sport");
+  elm.Campaign = CampaignWords;
+  elm.Sport = SportWords;
   elm.Market = Market;
-  elm["Team Marks"] = wordSearch("Marks");
+  elm["Team Marks"] = MarksWords;
   elm["Asset Status"] = AssetStatus;
-
 
   // Cleanup Non-needed Keys
   delete elm.SourceFile;
