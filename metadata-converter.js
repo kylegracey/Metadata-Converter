@@ -114,7 +114,6 @@ file.forEach(function(elm){
   const MarksWords = wordSearch("Marks");
 
   //Write to Object Keys in order that they should appear
-  elm.OriginalKeys = elm.Keywords;
   elm["Asset Name"] = trimExtension();
   elm["Asset Description"] = elm.Description;
   elm.BrandSubbrand = getSetting("BrandSubBrand");
