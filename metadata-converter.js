@@ -57,9 +57,9 @@ file.forEach(function(elm){
   }
 
   //Search for words within keywords
-  function wordSearch(terms) {
+  function wordSearch(key) {
     var categoryHolder = [];
-    var categoryTerms = terms;
+    var categoryTerms = getSetting(key);
 
     //Loop through each keyword and seach for each value in KeywordArr
     categoryTerms.forEach(function(keyword){
@@ -120,17 +120,17 @@ file.forEach(function(elm){
   elm.Group = getSetting("Group");
   elm["Client Team"] = getSetting("Client Team");
   elm["Product Group"] = ProductGroups;
-  elm.Product = wordSearch(getSetting("Product"));
-  elm.Person = wordSearch(getSetting("Person"));
-  elm.Gender = wordSearch(getSetting("Gender"));
-  elm["Number of People"] = wordSearch(getSetting("Number of People"));
+  elm.Product = wordSearch("Product");
+  elm.Person = wordSearch("Person");
+  elm.Gender = wordSearch("Gender");
+  elm["Number of People"] = wordSearch("Number of People");
   elm["Job ID"] = JobID;
   elm.Year = elm.Created.substring(0,4);
   elm["Platform Rights"] = PlatformRights;
-  elm.Campaign = wordSearch(getSetting("Campaign"));
-  elm.Sport = wordSearch(getSetting("Sport"));
+  elm.Campaign = wordSearch("Campaign");
+  elm.Sport = wordSearch("Sport");
   elm.Market = Market;
-  elm["Team Marks"] = wordSearch(getSetting("Marks"));
+  elm["Team Marks"] = wordSearch("Marks");
   elm["Asset Status"] = AssetStatus;
 
 
