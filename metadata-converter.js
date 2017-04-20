@@ -3,8 +3,6 @@ var fileName = './convertcsv.json';
 var file = require(fileName);
 var settings = require('./settings.json');
 
-var KeywordStr = "";
-
 //Static Settings
 var Archived = "0";
 var Copyright = "";
@@ -29,6 +27,7 @@ var pGroupWords = getSetting("Product Groups");
 
 file.forEach(function(elm){
   // Keyword string to array temporarily
+  var KeywordStr = elm.Keywords;
   var KeywordArr = elm.Keywords.split(', ');
   // Search through Keywords for terms that should be under a 'Group' and return the group(s) the asset should be tagged with.
   function groupSearch(){
