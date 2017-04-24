@@ -2,7 +2,7 @@ var fs = require('fs');
 var fileName = './convertcsv.json';
 var file = require(fileName);
 var settings = require('./settings.json');
-
+var getSetting = require('./modules/get-setting')
 var groupSearch = require('./modules/group-search');
 //var wordSearch = require('./modules/word-search');
 
@@ -16,16 +16,6 @@ var JobID = "";
 var PlatformRights = "";
 var Market = "North America";
 var AssetStatus = "";
-
-// Gets a specific setting by it's name
-function getSetting(key){
-  var setting;
-  settings.forEach(function(elm){
-    var output = elm[key];
-    setting = output;
-  });
-  return setting;
-}
 
 //Search for words within keywords
 function wordSearch(key, obj) {
