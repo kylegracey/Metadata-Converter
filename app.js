@@ -74,19 +74,19 @@ function wordSearch(key, obj) {
 
 }
 
+// Trim any extension off the file name or if there isn't an extension, return the current asset name.
+function trimExtension(obj) {
+  if (obj.FileName != null){
+    var fName = obj.FileName;
+    return fName.replace(/\.[^/.]+$/, "");
+  } else {
+    return obj["Asset Name"];
+  }
+}
+
 file.forEach(function(elm){
   // Keyword string to array temporarily
   KeywordArr = elm.Keywords.split(', ');
-
-  // Trim any extension off the file name or if there isn't an extension, return the current asset name.
-  function trimExtension() {
-    if (elm.FileName != null){
-      var fName = elm.FileName;
-      return fName.replace(/\.[^/.]+$/, "");
-    } else {
-      return elm["Asset Name"];
-    }
-  }
 
   // Take date, remove time, reformat if needed and return proper date.
   function formatDate() {
@@ -112,7 +112,7 @@ file.forEach(function(elm){
   const MarksWords = wordSearch("Marks", elm);
 
   //Write to Object Keys in order that they should appear
-  elm["Asset Name"] = trimExtension();
+  elm["Asset Name"] = trimExtension(elm);
   elm["Asset Description"] = elm.Description;
   elm.BrandSubbrand = getSetting("BrandSubBrand");
   elm.Created = formatDate();
