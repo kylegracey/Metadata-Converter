@@ -4,6 +4,8 @@ var file = require(fileName);
 var settings = require('./settings.json');
 
 var groupSearch = require('./modules/group-search');
+//var wordSearch = require('./modules/word-search');
+
 
 var KeywordArr = [];
 
