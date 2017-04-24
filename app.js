@@ -3,6 +3,8 @@ var fileName = './convertcsv.json';
 var file = require(fileName);
 var settings = require('./settings.json');
 
+var KeywordArr = [];
+
 //Static Settings
 var Archived = "0";
 var Copyright = "";
@@ -50,36 +52,31 @@ function groupSearch(elmKeys){
   return groupHolder.join(',');
 }
 
+//Search for words within keywords
+function wordSearch(key, obj) {
+  var categoryHolder = [];
+  var categoryTerms = getSetting(key);
+
+  //Loop through each keyword and seach for each value in KeywordArr
+  categoryTerms.forEach(function(keyword){
+    var hasKeyword = obj.Keywords.search(keyword);
+    if (hasKeyword !== -1) {
+      categoryHolder.push(keyword);
+
+      //Now remove from KeywordArr
+      var keyIndex = KeywordArr.indexOf(keyword);
+      KeywordArr.splice(keyIndex, 1);
+    };
+  });
+
+  //Convert final array to comma-separated string and return.
+  return categoryHolder.join(',');
+
+}
 
 file.forEach(function(elm){
   // Keyword string to array temporarily
-  var KeywordStr = elm.Keywords;
-  var KeywordArr = elm.Keywords.split(', ');
-
-  //Search for words within keywords
-  function wordSearch(key) {
-    var categoryHolder = [];
-    var categoryTerms = getSetting(key);
-
-    //Loop through each keyword and seach for each value in KeywordArr
-    categoryTerms.forEach(function(keyword){
-      var hasKeyword = elm.Keywords.search(keyword);
-      if (hasKeyword !== -1) {
-        categoryHolder.push(keyword);
-
-        //Now remove from KeywordArr
-        var keyIndex = KeywordArr.indexOf(keyword);
-        KeywordArr.splice(keyIndex, 1);
-      };
-    });
-
-    // Convert Keyword array back to string.
-    KeywordStr = KeywordArr.join(',');
-
-    //Convert final array to comma-separated string and return.
-    return categoryHolder.join(',');
-
-  }
+  KeywordArr = elm.Keywords.split(', ');
 
   // Trim any extension off the file name or if there isn't an extension, return the current asset name.
   function trimExtension() {
@@ -106,13 +103,13 @@ file.forEach(function(elm){
     // Run First (before removing words from Keywords with wordSearch function)
   const ProductGroups = groupSearch(elm.Keywords);
     // Run Second (removes words from tags)
-  const ProductWords = wordSearch("Product");
-  const PersonWords = wordSearch("Person");
-  const GenderWords = wordSearch("Gender");
-  const CampaignWords = wordSearch("Campaign");
-  const SportWords = wordSearch("Sport");
-  const NumPeopleWords = wordSearch("Number of People");
-  const MarksWords = wordSearch("Marks");
+  const ProductWords = wordSearch("Product", elm);
+  const PersonWords = wordSearch("Person", elm);
+  const GenderWords = wordSearch("Gender", elm);
+  const CampaignWords = wordSearch("Campaign", elm);
+  const SportWords = wordSearch("Sport", elm);
+  const NumPeopleWords = wordSearch("Number of People", elm);
+  const MarksWords = wordSearch("Marks", elm);
 
   //Write to Object Keys in order that they should appear
   elm["Asset Name"] = trimExtension();
@@ -120,7 +117,7 @@ file.forEach(function(elm){
   elm.BrandSubbrand = getSetting("BrandSubBrand");
   elm.Created = formatDate();
   elm.Copyright = Copyright;
-  elm.Tags = KeywordStr;
+  elm.Tags = KeywordArr.join(',');
   elm["Path to Assets"] = elm.SourceFile;
   elm.Archived = Archived;
   elm["New Filename"] = elm.FileName;
