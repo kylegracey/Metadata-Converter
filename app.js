@@ -84,20 +84,20 @@ function trimExtension(obj) {
   }
 }
 
+// Take date, remove time, reformat if needed and return proper date.
+function formatDate(obj) {
+  if (obj.CreateDate != null){
+    var rawDate = obj.CreateDate.substring(0, 10);
+    rawDate = rawDate.split(':').join('-');
+    return rawDate;
+  } else {
+    return obj.Created;
+  }
+}
+
 file.forEach(function(elm){
   // Keyword string to array temporarily
   KeywordArr = elm.Keywords.split(', ');
-
-  // Take date, remove time, reformat if needed and return proper date.
-  function formatDate() {
-    if (elm.CreateDate != null){
-      var rawDate = elm.CreateDate.substring(0, 10);
-      rawDate = rawDate.split(':').join('-');
-      return rawDate;
-    } else {
-      return elm.Created;
-    }
-  }
 
   //Setup Keys In order of when they should run
     // Run First (before removing words from Keywords with wordSearch function)
@@ -115,7 +115,7 @@ file.forEach(function(elm){
   elm["Asset Name"] = trimExtension(elm);
   elm["Asset Description"] = elm.Description;
   elm.BrandSubbrand = getSetting("BrandSubBrand");
-  elm.Created = formatDate();
+  elm.Created = formatDate(elm);
   elm.Copyright = Copyright;
   elm.Tags = KeywordArr.join(',');
   elm["Path to Assets"] = elm.SourceFile;
