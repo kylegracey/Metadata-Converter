@@ -24,36 +24,37 @@ function getSetting(key){
 //Values to search for
 var pGroupWords = getSetting("Product Groups");
 
+// Search through Keywords for terms that should be under a 'Group' and return the group(s) the asset should be tagged with.
+function groupSearch(elmKeys){
+  let groupHolder = [];
+  let groups = pGroupWords;
+  //Loop through each key in the object
+  for (key in groups) {
+    const groupName = key;
+    const groupArr = groups[key];
+    var hasKeyword = 0;
+    //Loop through each value of the key's array
+
+    groupArr.forEach(function(keyword){
+      //Compare the value to see if it exists in elm.Keywords
+      if(elmKeys.search(keyword) !== -1){
+        hasKeyword = 1;
+      }
+    });
+
+    if(hasKeyword === 1) {
+      groupHolder.push(groupName);
+    }
+
+  }
+  return groupHolder.join(',');
+}
+
 
 file.forEach(function(elm){
   // Keyword string to array temporarily
   var KeywordStr = elm.Keywords;
   var KeywordArr = elm.Keywords.split(', ');
-  // Search through Keywords for terms that should be under a 'Group' and return the group(s) the asset should be tagged with.
-  function groupSearch(){
-    let groupHolder = [];
-    let groups = pGroupWords;
-    //Loop through each key in the object
-    for (key in groups) {
-      const groupName = key;
-      const groupArr = groups[key];
-      var hasKeyword = 0;
-      //Loop through each value of the key's array
-
-      groupArr.forEach(function(keyword){
-        //Compare the value to see if it exists in elm.Keywords
-        if(elm.Keywords.search(keyword) !== -1){
-          hasKeyword = 1;
-        }
-      });
-
-      if(hasKeyword === 1) {
-        groupHolder.push(groupName);
-      }
-
-    }
-    return groupHolder.join(',');
-  }
 
   //Search for words within keywords
   function wordSearch(key) {
@@ -103,7 +104,7 @@ file.forEach(function(elm){
 
   //Setup Keys In order of when they should run
     // Run First (before removing words from Keywords with wordSearch function)
-  const ProductGroups = groupSearch();
+  const ProductGroups = groupSearch(elm.Keywords);
     // Run Second (removes words from tags)
   const ProductWords = wordSearch("Product");
   const PersonWords = wordSearch("Person");
