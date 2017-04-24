@@ -2,9 +2,13 @@ var fs = require('fs');
 var fileName = './convertcsv.json';
 var file = require(fileName);
 var settings = require('./settings.json');
+
+// Modules
 var getSetting = require('./modules/get-setting')
 var groupSearch = require('./modules/group-search');
 //var wordSearch = require('./modules/word-search');
+var trimExtension = require('./modules/trim-extension');
+var formatDate = require('./modules/format-date');
 
 
 var KeywordArr = [];
@@ -39,26 +43,6 @@ function wordSearch(key, obj) {
 
 }
 
-// Trim any extension off the file name or if there isn't an extension, return the current asset name.
-function trimExtension(obj) {
-  if (obj.FileName != null){
-    var fName = obj.FileName;
-    return fName.replace(/\.[^/.]+$/, "");
-  } else {
-    return obj["Asset Name"];
-  }
-}
-
-// Take date, remove time, reformat if needed and return proper date.
-function formatDate(obj) {
-  if (obj.CreateDate != null){
-    var rawDate = obj.CreateDate.substring(0, 10);
-    rawDate = rawDate.split(':').join('-');
-    return rawDate;
-  } else {
-    return obj.Created;
-  }
-}
 
 file.forEach(function(elm){
   // Keyword string to array temporarily
